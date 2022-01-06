@@ -1,2 +1,50 @@
-# haye_maesen_doolaeghe
-Projet Haye/Maesen/Doolaeghe
+# Projet Architecture Logicielle Haye/Maesen/Doolaeghe
+
+## Organisation Evénementiel
+
+Workflows :
+- Création de compte
+- Gestion des évènements
+- Participation aux utilisateurs
+
+Fonctionnalités :
+- Création de compte
+  - Créer un compte
+  - Modifier un compte
+  - Supprimer un compte
+  - Afficher le compte
+- Gestion des évènements
+  - Ajouter un évènement
+  - Modifier un évènement
+  - Supprimer un évènement
+  - Lister les évènements
+  - Reporter un évènement
+- Participation aux évènements
+  - Ajouter au panier
+  - Passer la commande
+
+Domaines :
+- Evènement
+- Utilisateur
+- Participant
+
+Entités :
+- Evènement
+  - Nom
+  - Description
+  - Image
+  - Lieu
+  - Date
+  - Durée
+  - Nombre de participants maximum
+  - Prix
+- Utilisateur
+  - Nom
+  - Prénom
+  - Date de naissance
+  - Adresse mail
+  - Numéro de téléphone
+- Participant
+  - Numéro billet
+  - Date de commande
+  - Identifant évènement
