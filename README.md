@@ -1,4 +1,10 @@
-# Projet Architecture Logicielle Haye/Maesen/Doolaeghe
+# Projet Architecture Logicielle
+
+## Auteurs
+
+- Kevin Doolaeghe
+- Romain Haye
+- Quentin Maesen
 
 ## Organisation Evénementiel
 
