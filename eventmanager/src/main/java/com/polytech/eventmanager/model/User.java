@@ -1,24 +1,38 @@
 package com.polytech.eventmanager.model;
 
-import lombok.Data;
+import lombok.*;
+import javax.persistence.*;
 
 import java.util.Date;
 
-@Data
+@Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 11)
+    private Integer id;
 
-    protected long id;
+    @Column(name = "nickname", nullable = false, length = 45)
+    private String nickname;
 
-    protected String nickname;
+    @Column(name = "firstname", nullable = false, length = 45)
+    private String firstname;
 
-    protected String firstname;
+    @Column(name = "lastname", nullable = false, length = 45)
+    private String lastname;
 
-    protected String lastname;
+    @Column(name = "email_address", length = 100)
+    private String email;
 
+    @Column(name = "password", nullable = false, length = 45)
     protected String password;
 
-    protected String emailAddress;
-
+    @Column(name = "date_of_birth", nullable = false, length = 45)
     protected Date dateOfBirth;
-
 }

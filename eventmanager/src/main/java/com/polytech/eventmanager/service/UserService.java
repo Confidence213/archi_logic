@@ -1,62 +1,59 @@
 package com.polytech.eventmanager.service;
 
 import com.polytech.eventmanager.model.User;
+import com.polytech.eventmanager.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    public List<User> list = new ArrayList<>();
-    public Integer id = 1;
+    private final UserRepository repository;
 
-    public UserService() {
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+        this.initUsers();
+    }
+
+    public void initUsers() {
         User user1 = new User();
         user1.setNickname("user1");
-        user1.setEmailAddress("mail@test.com");
-        user1.setId(this.id++);
+        user1.setEmail("mail@test.com");
 
         User user2 = new User();
         user2.setNickname("user2");
-        user2.setEmailAddress("mail2@test.com");
-        user2.setId(this.id++);
+        user2.setEmail("mail2@test.com");
 
-        this.list.add(user1);
-        this.list.add(user2);
+        this.repository.save(user1);
+        this.repository.save(user2);
     }
 
     public List<User> getAllUsers() {
-        return this.list;
+        return this.repository.findAll();
     }
 
-    public User getUserById(long id) {
-        for (User user : this.list) {
-            if (user.getId() == id) return user;
-        }
+    public User getUserById(Integer userId) {
+        Optional<User> found = this.repository.findById(userId);
+        if (found.isPresent()) return found.get();
         return null;
     }
 
     public User createUser(User givenUser) {
-        if (givenUser.getNickname() != null && givenUser.getEmailAddress() != null) {
-            givenUser.setId(this.id++);
-            this.list.add(givenUser);
-            return givenUser;
+        if (givenUser.getNickname() != null && givenUser.getEmail() != null) {
+            return this.repository.save(givenUser);
         }
         return null;
     }
 
-    public boolean deleteUserById(long id) {
-        for (User user : this.list) {
-            if (user.getId() == id) {
-                this.list.remove(user);
-                return true;
-            }
+    public boolean deleteUserById(Integer userId) {
+        User found = getUserById(userId);
+        if (found != null) {
+            this.repository.deleteById(found.getId());
+            return true;
         }
         return false;
     }
-
-
 
 }
