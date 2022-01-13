@@ -11,7 +11,7 @@
 Workflows :
 - Création de compte
 - Gestion des évènements
-- Participation aux utilisateurs
+- Participation aux évènements
 
 Fonctionnalités :
 - Création de compte
