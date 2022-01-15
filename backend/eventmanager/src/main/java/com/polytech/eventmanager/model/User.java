@@ -30,9 +30,9 @@ public class User {
     @Column(name = "email_address", length = 100)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 45)
+    @Column(name = "password", nullable = false, length = 20)
     protected String password;
 
-    @Column(name = "date_of_birth", nullable = false, length = 45)
+    @Column(name = "date_of_birth", nullable = false)
     protected Date dateOfBirth;
 }

@@ -54,3 +54,32 @@ Entités :
   - Numéro billet
   - Date de commande
   - Identifant évènement
+
+## Docker
+
+* Téléchargement de l'image Docker de la BDD MariaDB :
+```
+docker pull mariadb
+```
+
+* Démarrage d'un conteneur Docker pour MariaDB :
+```
+docker run --detach --name mariadb --env MARIADB_USER=test --env MARIADB_PASSWORD=test --env MARIADB_ROOT_PASSWORD=secret --env MARIADB_DATABASE=db -p 3306:3306 mariadb:latest
+```
+
+* Démarrage du serveur REST :
+```
+java -jar rest.jar
+```
+
+## Docker Compose
+
+* Compilation du backend en JAR :
+```
+mvn clean install
+```
+
+* Démarrage du stack :
+```
+docker-compose up -d
+```

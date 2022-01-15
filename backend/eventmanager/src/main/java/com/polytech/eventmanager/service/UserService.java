@@ -4,6 +4,7 @@ import com.polytech.eventmanager.model.User;
 import com.polytech.eventmanager.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +21,19 @@ public class UserService {
     public void initUsers() {
         User user1 = new User();
         user1.setNickname("user1");
-        user1.setEmail("mail@test.com");
+        user1.setFirstname("john");
+        user1.setLastname("doe");
+        user1.setEmail("mail1@test.com");
+        user1.setPassword("letmein");
+        user1.setDateOfBirth(new Date());
 
         User user2 = new User();
-        user2.setNickname("user2");
-        user2.setEmail("mail2@test.com");
+        user1.setNickname("user2");
+        user1.setFirstname("allison");
+        user1.setLastname("white");
+        user1.setEmail("mail2@test.com");
+        user1.setPassword("pass");
+        user1.setDateOfBirth(new Date());
 
         this.repository.save(user1);
         this.repository.save(user2);
@@ -36,8 +45,7 @@ public class UserService {
 
     public User getUserById(Integer userId) {
         Optional<User> found = this.repository.findById(userId);
-        if (found.isPresent()) return found.get();
-        return null;
+        return found.orElse(null);
     }
 
     public User createUser(User givenUser) {
