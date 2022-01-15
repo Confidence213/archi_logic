@@ -4,6 +4,8 @@ import com.polytech.eventmanager.model.User;
 import com.polytech.eventmanager.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -19,24 +21,30 @@ public class UserService {
     }
 
     public void initUsers() {
-        User user1 = new User();
-        user1.setNickname("user1");
-        user1.setFirstname("john");
-        user1.setLastname("doe");
-        user1.setEmail("mail1@test.com");
-        user1.setPassword("letmein");
-        user1.setDateOfBirth(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        User user2 = new User();
-        user1.setNickname("user2");
-        user1.setFirstname("allison");
-        user1.setLastname("white");
-        user1.setEmail("mail2@test.com");
-        user1.setPassword("pass");
-        user1.setDateOfBirth(new Date());
+        try {
+            User user1 = new User();
+            user1.setNickname("user1");
+            user1.setFirstname("john");
+            user1.setLastname("doe");
+            user1.setEmail("mail1@test.com");
+            user1.setPassword("letmein");
+            user1.setDateOfBirth(sdf.parse("12/01/1980"));
 
-        this.repository.save(user1);
-        this.repository.save(user2);
+            User user2 = new User();
+            user2.setNickname("user2");
+            user2.setFirstname("allison");
+            user2.setLastname("white");
+            user2.setEmail("mail2@test.com");
+            user2.setPassword("pass");
+            user2.setDateOfBirth(sdf.parse("04/02/1983"));
+
+            this.repository.save(user1);
+            this.repository.save(user2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<User> getAllUsers() {

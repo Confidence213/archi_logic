@@ -64,7 +64,7 @@ docker pull mariadb
 
 * Démarrage d'un conteneur Docker pour MariaDB :
 ```
-docker run --detach --name mariadb --env MARIADB_USER=test --env MARIADB_PASSWORD=test --env MARIADB_ROOT_PASSWORD=secret --env MARIADB_DATABASE=db -p 3306:3306 mariadb:latest
+docker run --detach --name mariadb --env MARIADB_USER=pifou --env MARIADB_PASSWORD=pasglop --env MARIADB_ROOT_PASSWORD=glopglop --env MARIADB_DATABASE=db -p 3306:3306 mariadb:latest
 ```
 
 * Démarrage du serveur REST :
