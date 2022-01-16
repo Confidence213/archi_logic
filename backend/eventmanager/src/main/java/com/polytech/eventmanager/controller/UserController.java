@@ -1,5 +1,7 @@
 package com.polytech.eventmanager.controller;
 
+import com.polytech.eventmanager.dto.UserDTO;
+import com.polytech.eventmanager.mapper.UserMapper;
 import com.polytech.eventmanager.model.User;
 import com.polytech.eventmanager.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -19,26 +21,34 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        List<UserDTO> usersDtos = UserMapper.toUserDTOList(users);
+
+        return ResponseEntity.ok(usersDtos);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer userId) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer userId) {
         User user = userService.getUserById(userId);
-        if (user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        return ResponseEntity.ok(user);
+        if (user == null) return ResponseEntity.notFound().build();
+
+        UserDTO dto = UserMapper.toUserDTO(user);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping("")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        if (createdUser == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO dto) {
+        User fromDto = UserMapper.toUser(dto);
+        User createdUser = userService.createUser(fromDto);
+        if (createdUser == null) return ResponseEntity.badRequest().build();
+
+        UserDTO createdUserDto = UserMapper.toUserDTO(createdUser);
+        return ResponseEntity.ok(createdUserDto);
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<User> deleteUser(@PathVariable Integer userId) {
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable Integer userId) {
         boolean status = userService.deleteUserById(userId);
         if (!status) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok().build();

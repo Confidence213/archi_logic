@@ -2,7 +2,7 @@ version: '2'
 
 services:
   backend:
-    build: ./backend
+    build: ./backend/eventmanager
     restart: unless-stopped
     container_name: backend
     ports:
@@ -12,19 +12,19 @@ services:
     networks:
     - polytech
 
-mariadb:
-  container_name: mariadb
-  image: mariadb
-  restart: on-failure
-  volumes:
-  - mariadb:/var/lib/mysql
-  environment:
-  - MYSQL_ROOT_PASSWORD=glopglop
-  - MYSQL_DATABASE=db
-  - MYSQL_USER=pifou
-  - MYSQL_PASSWORD=pasglop
-  networks:
-  - polytech
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    restart: on-failure
+    volumes:
+    - mariadb:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=glopglop
+    - MYSQL_DATABASE=db
+    - MYSQL_USER=pifou
+    - MYSQL_PASSWORD=pasglop
+    networks:
+    - polytech
 
 networks:
   polytech:

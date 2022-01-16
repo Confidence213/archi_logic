@@ -55,31 +55,9 @@ Entités :
   - Date de commande
   - Identifant évènement
 
-## Docker
+## Installation
 
-* Téléchargement de l'image Docker de la BDD MariaDB :
 ```
-docker pull mariadb
-```
-
-* Démarrage d'un conteneur Docker pour MariaDB :
-```
-docker run --detach --name mariadb --env MARIADB_USER=pifou --env MARIADB_PASSWORD=pasglop --env MARIADB_ROOT_PASSWORD=glopglop --env MARIADB_DATABASE=db -p 3306:3306 mariadb:latest
-```
-
-* Démarrage du serveur REST :
-```
-java -jar rest.jar
-```
-
-## Docker Compose
-
-* Compilation du backend en JAR :
-```
-mvn clean install
-```
-
-* Démarrage du stack :
-```
-docker-compose up -d
+chmod +x install.sh
+./install.sh
 ```
