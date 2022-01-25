@@ -10,6 +10,9 @@ public class UserMapper {
     public static UserDTO toUserDTO(User user) {
         return UserDTO.builder()
                 .nickname(user.getNickname())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .dateOfBirth(user.getDateOfBirth())
                 .email(user.getEmail())
                 .build();
     }
@@ -25,6 +28,9 @@ public class UserMapper {
     public static User toUser(UserDTO dto) {
         return User.builder()
                 .nickname(dto.getNickname())
+                .firstname(dto.getFirstname())
+                .lastname(dto.getLastname())
+                .dateOfBirth(dto.getDateOfBirth())
                 .email(dto.getEmail())
                 .build();
     }

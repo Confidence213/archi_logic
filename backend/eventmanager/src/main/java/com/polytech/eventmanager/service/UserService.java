@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +56,7 @@ public class UserService {
     }
 
     public User createUser(User givenUser) {
-        if (givenUser.getNickname() != null && givenUser.getEmail() != null) {
+        if (givenUser.getNickname() != null && givenUser.getFirstname() != null && givenUser.getLastname() != null && givenUser.getDateOfBirth() != null) {
             return this.repository.save(givenUser);
         }
         return null;
@@ -70,6 +69,13 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public User updateUser(User givenUser) {
+        if (this.repository.existsById(givenUser.getId())) {
+            return this.repository.save(givenUser);
+        }
+        return null;
     }
 
 }

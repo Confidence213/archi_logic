@@ -40,6 +40,7 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO dto) {
         User fromDto = UserMapper.toUser(dto);
+
         User createdUser = userService.createUser(fromDto);
         if (createdUser == null) return ResponseEntity.badRequest().build();
 
@@ -52,6 +53,18 @@ public class UserController {
         boolean status = userService.deleteUserById(userId);
         if (!status) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer userId, @RequestBody UserDTO dto) {
+        User fromDto = UserMapper.toUser(dto);
+        fromDto.setId(userId);
+
+        User updatedUser = userService.updateUser(fromDto);
+        if(updatedUser == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        UserDTO updatedUserDto = UserMapper.toUserDTO(updatedUser);
+        return ResponseEntity.ok(updatedUserDto);
     }
 
 }

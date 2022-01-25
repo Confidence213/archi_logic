@@ -27,12 +27,12 @@ public class User {
     @Column(name = "lastname", nullable = false, length = 45)
     private String lastname;
 
+    @Column(name = "date_of_birth", nullable = false)
+    protected Date dateOfBirth;
+
     @Column(name = "email_address", length = 100)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 20)
+    @Column(name = "password", length = 50)
     protected String password;
-
-    @Column(name = "date_of_birth", nullable = false)
-    protected Date dateOfBirth;
 }
