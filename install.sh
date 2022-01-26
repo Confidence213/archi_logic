@@ -12,6 +12,6 @@ mvn clean install
 
 cd ../..
 
-docker-compose up -d --build backend
+# docker-compose up -d --build backend
 
-# docker-compose up -d
+docker-compose up -d

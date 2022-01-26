@@ -1,17 +1,20 @@
 version: '2'
 
 services:
-  backend:
-    build: ./backend/eventmanager
+  frontend:
+    build: ./frontend/eventmanager
     restart: unless-stopped
     container_name: frontend
     ports:
     - "80:80"
+    - "443:443"
+    depends_on:
+    - backend
     networks:
     - polytech
 
-  frontend:
-    build: ./frontend/eventmanager
+  backend:
+    build: ./backend/eventmanager
     restart: unless-stopped
     container_name: backend
     ports:
