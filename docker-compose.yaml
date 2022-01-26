@@ -4,6 +4,15 @@ services:
   backend:
     build: ./backend/eventmanager
     restart: unless-stopped
+    container_name: frontend
+    ports:
+    - "80:80"
+    networks:
+    - polytech
+
+  frontend:
+    build: ./frontend/eventmanager
+    restart: unless-stopped
     container_name: backend
     ports:
     - "8080:8080"
