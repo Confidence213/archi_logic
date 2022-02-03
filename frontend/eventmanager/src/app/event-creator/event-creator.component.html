@@ -1,0 +1,11 @@
+<div>
+    <label for="event-title">Event title: </label>
+    <input id="event-title" #title />
+    <br />
+    <label for="event-description">Event description: </label>
+    <input id="event-description" #description />
+    <br />
+    <button class="add-button" (click)="addEvent(title.value, description.value); title.value=''; description.value = ''">
+      Add event
+    </button>
+  </div>
