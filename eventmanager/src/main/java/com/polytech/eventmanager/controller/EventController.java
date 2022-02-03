@@ -20,7 +20,7 @@ public class EventController {
 
     @GetMapping("")
     public ResponseEntity<List<Event>> getAllEvent() {
-        return ResponseEntity.ok(eventService.getAllEvent());
+        return ResponseEntity.ok(eventService.getAllEvents());
     }
 
     // todo: add other methods
@@ -43,5 +43,14 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(event);
+    }
+
+    @DeleteMapping("/{eventId}")
+    public ResponseEntity<Event> deleteUser(@PathVariable Integer eventId) {
+        boolean deletedEvent = eventService.deleteEvent(eventId);
+        if (deletedEvent == false) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok().build();
     }
 }

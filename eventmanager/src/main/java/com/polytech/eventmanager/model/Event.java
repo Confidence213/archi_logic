@@ -33,8 +33,8 @@ public class Event {
     @Column(name= "MaxOfParticipant", length = 9999)
     private int MaxOfParticipant;
 
-    @Column(name = "Price", nullable = false)
-    private double Price;
+    @Column(name = "Price")
+    private float Price;
 
     @Column(name = "dateOfEvent")
     private Date dateOfEvent;
