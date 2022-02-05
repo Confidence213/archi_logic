@@ -1,29 +1,40 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { EventService } from './event.service';
+import { UserService } from './user.service';
+
 import { EventListComponent } from './event-list/event-list.component';
-import { EventListService } from './event-list.service';
 import { EventCreatorComponent } from './event-creator/event-creator.component';
 import { EventDestroyerComponent } from './event-destroyer/event-destroyer.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserCreatorComponent } from './user-creator/user-creator.component';
+import { UserDestroyerComponent } from './user-destroyer/user-destroyer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventListComponent,
     EventCreatorComponent,
-    EventDestroyerComponent
+    EventDestroyerComponent,
+    UserListComponent,
+    UserDestroyerComponent,
+    UserCreatorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
-    EventListService
+    EventService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

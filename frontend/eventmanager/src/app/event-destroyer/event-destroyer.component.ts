@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EventListService } from '../event-list.service';
+import { EventService } from '../event.service';
 
 @Component({
   selector: 'app-event-destroyer',
@@ -10,13 +10,13 @@ export class EventDestroyerComponent implements OnInit {
 
   @Input() eventId: number = 0;
 
-  constructor(private service: EventListService) { }
+  constructor(private service: EventService) { }
 
   ngOnInit(): void {
   }
 
   deleteEvent() {
-    this.service.deleteEvent(this.eventId);
+    this.service.deleteEvent(this.eventId).subscribe();
   }
 
 }

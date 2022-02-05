@@ -1,11 +1,21 @@
 <div>
-    <label for="event-title">Event title: </label>
-    <input id="event-title" #title />
+  <form [formGroup]="eventForm" (ngSubmit)="addEvent()">
+    <label for="title">*Title: </label>
+    <input id="title" formControlName="title" required />
     <br />
-    <label for="event-description">Event description: </label>
-    <input id="event-description" #description />
+    <label for="description">Description: </label>
+    <input id="description" formControlName="description" />
     <br />
-    <button class="add-button" (click)="addEvent(title.value, description.value); title.value=''; description.value = ''">
-      Add event
-    </button>
-  </div>
+    <label for="place">*Place: </label>
+    <input id="place" formControlName="place" required />
+    <br />
+    <label for="date">*Date: </label>
+    <input id="date" type="date" formControlName="date" required />
+    <br />
+    <label for="price">*Price: </label>
+    <input id="price" type="number" formControlName="price" required />
+    <br />
+    <p>*: mandatory fields</p>
+    <button type="submit" [disabled]="!eventForm.valid">Add event</button>
+  </form>
+</div>

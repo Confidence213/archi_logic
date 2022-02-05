@@ -1,3 +1,3 @@
 ## Frontend
 
-### React.js Web Application
+### Angular Web Application

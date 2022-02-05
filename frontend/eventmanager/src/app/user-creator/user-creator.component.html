@@ -1,0 +1,24 @@
+<div>
+  <form [formGroup]="userForm" (ngSubmit)="addUser()">
+    <label for="username">*Username: </label>
+    <input id="username" formControlName="username" required />
+    <br />
+    <label for="firstname">Firstname: </label>
+    <input id="firstname" formControlName="firstname" />
+    <br />
+    <label for="lastname">Lastname: </label>
+    <input id="lastname" formControlName="lastname" />
+    <br />
+    <label for="dateOfBirth">Date of birth: </label>
+    <input id="dateOfBirth" type="date" formControlName="dateOfBirth" />
+    <br />
+    <label for="email">Email: </label>
+    <input id="email" type="email" formControlName="email" />
+    <br />
+    <label for="password">Password: </label>
+    <input id="password" type="password" formControlName="password" />
+    <br />
+    <p>*: mandatory fields</p>
+    <button type="submit" [disabled]="!userForm.valid">Add user</button>
+  </form>
+</div>

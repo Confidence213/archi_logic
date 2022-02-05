@@ -24,7 +24,7 @@ public class UserService {
 
         try {
             User user1 = new User();
-            user1.setNickname("user1");
+            user1.setUsername("user1");
             user1.setFirstname("john");
             user1.setLastname("doe");
             user1.setEmail("mail1@test.com");
@@ -32,7 +32,7 @@ public class UserService {
             user1.setDateOfBirth(sdf.parse("12/01/1980"));
 
             User user2 = new User();
-            user2.setNickname("user2");
+            user2.setUsername("user2");
             user2.setFirstname("allison");
             user2.setLastname("white");
             user2.setEmail("mail2@test.com");
@@ -50,20 +50,17 @@ public class UserService {
         return this.repository.findAll();
     }
 
-    public User getUserById(Integer userId) {
-        Optional<User> found = this.repository.findById(userId);
+    public User getUserByUsername(String username) {
+        Optional<User> found = this.repository.findByUsername(username);
         return found.orElse(null);
     }
 
     public User createUser(User givenUser) {
-        if (givenUser.getNickname() != null && givenUser.getFirstname() != null && givenUser.getLastname() != null && givenUser.getDateOfBirth() != null) {
-            return this.repository.save(givenUser);
-        }
-        return null;
+        return this.repository.save(givenUser);
     }
 
-    public boolean deleteUserById(Integer userId) {
-        User found = getUserById(userId);
+    public boolean deleteUserByUsername(String username) {
+        User found = getUserByUsername(username);
         if (found != null) {
             this.repository.deleteById(found.getId());
             return true;
@@ -72,7 +69,9 @@ public class UserService {
     }
 
     public User updateUser(User givenUser) {
-        if (this.repository.existsById(givenUser.getId())) {
+        User found = getUserByUsername(givenUser.getUsername());
+        if (found != null) {
+            givenUser.setId(found.getId());
             return this.repository.save(givenUser);
         }
         return null;

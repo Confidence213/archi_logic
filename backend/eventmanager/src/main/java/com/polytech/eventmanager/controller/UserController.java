@@ -1,6 +1,7 @@
 package com.polytech.eventmanager.controller;
 
-import com.polytech.eventmanager.dto.UserDTO;
+import com.polytech.eventmanager.dto.UserGetDto;
+import com.polytech.eventmanager.dto.UserPostDto;
 import com.polytech.eventmanager.mapper.UserMapper;
 import com.polytech.eventmanager.model.User;
 import com.polytech.eventmanager.service.UserService;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RequestMapping("/users")
 @RestController
+@CrossOrigin(maxAge = 3600)
 public class UserController {
 
     private final UserService userService;
@@ -21,49 +23,49 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<UserGetDto>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        List<UserDTO> usersDtos = UserMapper.toUserDTOList(users);
+        List<UserGetDto> usersDtos = UserMapper.toUserGetDtoList(users);
 
         return ResponseEntity.ok(usersDtos);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer userId) {
-        User user = userService.getUserById(userId);
+    @GetMapping("/{username}")
+    public ResponseEntity<UserGetDto> getUserByUsername(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
         if (user == null) return ResponseEntity.notFound().build();
 
-        UserDTO dto = UserMapper.toUserDTO(user);
+        UserGetDto dto = UserMapper.toUserGetDto(user);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping("")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO dto) {
+    public ResponseEntity<UserGetDto> createUser(@RequestBody UserPostDto dto) {
         User fromDto = UserMapper.toUser(dto);
 
         User createdUser = userService.createUser(fromDto);
         if (createdUser == null) return ResponseEntity.badRequest().build();
 
-        UserDTO createdUserDto = UserMapper.toUserDTO(createdUser);
+        UserGetDto createdUserDto = UserMapper.toUserGetDto(createdUser);
         return ResponseEntity.ok(createdUserDto);
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable Integer userId) {
-        boolean status = userService.deleteUserById(userId);
+    @DeleteMapping("/{username}")
+    public ResponseEntity<UserGetDto> deleteUser(@PathVariable String username) {
+        boolean status = userService.deleteUserByUsername(username);
         if (!status) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{userId}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Integer userId, @RequestBody UserDTO dto) {
+    @PatchMapping("/{username}")
+    public ResponseEntity<UserGetDto> updateUser(@PathVariable String username, @RequestBody UserPostDto dto) {
         User fromDto = UserMapper.toUser(dto);
-        fromDto.setId(userId);
+        fromDto.setUsername(username);
 
         User updatedUser = userService.updateUser(fromDto);
-        if(updatedUser == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if (updatedUser == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-        UserDTO updatedUserDto = UserMapper.toUserDTO(updatedUser);
+        UserGetDto updatedUserDto = UserMapper.toUserGetDto(updatedUser);
         return ResponseEntity.ok(updatedUserDto);
     }
 

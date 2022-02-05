@@ -6,6 +6,13 @@
 - Romain Haye
 - Quentin Maesen
 
+## Installation
+
+```
+chmod +x install.sh
+./install.sh
+```
+
 ## Organisation Evénementiel
 
 Workflows :
@@ -54,10 +61,3 @@ Entités :
   - Numéro billet
   - Date de commande
   - Identifant évènement
-
-## Installation
-
-```
-chmod +x install.sh
-./install.sh
-```

@@ -1,3 +1,17 @@
-<h1>Event manager</h1>
-<app-event-list></app-event-list>
-<app-event-creator></app-event-creator>
+<h1>{{ title }}</h1>
+<nav>
+  <button type="button" (click)="toggleEditor('users')">Users</button>
+  <button type="button" (click)="toggleEditor('events')">Events</button>
+</nav>
+<br/>
+<div *ngIf="showUserContent">
+    <app-user-list></app-user-list>
+    <hr/>
+    <app-user-creator></app-user-creator>
+</div>
+<div *ngIf="showEventContent">
+    <app-event-list></app-event-list>
+    <hr/>
+    <app-event-creator></app-event-creator>
+</div>
+

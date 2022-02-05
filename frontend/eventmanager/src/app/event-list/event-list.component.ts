@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventListService } from '../event-list.service';
+import { EventService } from '../event.service';
 
 @Component({
   selector: 'app-event-list',
@@ -11,7 +11,7 @@ export class EventListComponent implements OnInit {
   title = "Liste des évènements :";
   eventList;
 
-  constructor(service: EventListService) {
+  constructor(service: EventService) {
     this.eventList = service.getEventList();
   }
 

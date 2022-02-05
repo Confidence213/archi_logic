@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 import { Event } from './event';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EventListService {
+export class EventService {
 
-  private url = 'http://localhost:8080/users';
+  private url = 'http://localhost:8080/events';
   
   private httpOptions = {
     headers: new HttpHeaders({
@@ -58,7 +58,7 @@ export class EventListService {
   }
 
   private log(message: string) {
-    console.log(`EventListService: ${message}`);
+    console.log(`EventService: ${message}`);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

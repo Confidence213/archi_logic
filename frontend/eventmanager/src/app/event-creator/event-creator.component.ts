@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EventListService } from '../event-list.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { EventService } from '../event.service';
 
 import { Event } from '../event';
 
@@ -10,13 +11,22 @@ import { Event } from '../event';
 })
 export class EventCreatorComponent implements OnInit {
 
-  constructor(private service: EventListService) { }
+  eventForm = this.fb.group({
+    title: ['', Validators.required],
+    description: [''],
+    place: ['', Validators.required],
+    date: ['', Validators.required],
+    price: ['', Validators.required]
+  });
+
+  constructor(private fb: FormBuilder, private service: EventService) { }
 
   ngOnInit(): void {
   }
 
-  addEvent(title: string, description: string) {
-    this.service.addEvent({title, description} as Event);
+  addEvent() {
+    this.service.addEvent(this.eventForm.value as Event).subscribe();
+    this.eventForm.reset();
   }
 
 }
