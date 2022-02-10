@@ -1,9 +1,12 @@
 package com.polytech.eventmanager.model;
 
-import java.util.Date;
 
 import lombok.*;
 import javax.persistence.*;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity // mark class as a database entity
 @Getter // specify separatly lombok annotation instead of @Data to avoid some problems
@@ -38,4 +41,12 @@ public class Event {
 
     @Column(name = "dateOfEvent")
     private Date dateOfEvent;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_event",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<Event> events = new HashSet<>();
 }
