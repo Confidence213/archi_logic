@@ -13,12 +13,14 @@ export class UserCreatorComponent implements OnInit {
 
   userForm = this.fb.group({
     username: ['', Validators.required],
-    firstName: [''],
-    lastName: [''],
+    firstname: [''],
+    lastname: [''],
     dateOfBirth: [''],
     email: [''],
     password: ['']
   });
+
+  error = "";
 
   constructor(private fb: FormBuilder, private service: UserService) { }
 

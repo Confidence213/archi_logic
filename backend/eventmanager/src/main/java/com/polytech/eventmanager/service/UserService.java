@@ -56,7 +56,11 @@ public class UserService {
     }
 
     public User createUser(User givenUser) {
-        return this.repository.save(givenUser);
+        User found = getUserByUsername(givenUser.getUsername());
+        if (found == null) {
+            return this.repository.save(givenUser);
+        }
+        return null;
     }
 
     public boolean deleteUserByUsername(String username) {

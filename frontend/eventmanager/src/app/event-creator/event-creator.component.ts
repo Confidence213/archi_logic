@@ -25,6 +25,7 @@ export class EventCreatorComponent implements OnInit {
   }
 
   addEvent() {
+    console.log("hitest");
     this.service.addEvent(this.eventForm.value as Event).subscribe();
     this.eventForm.reset();
   }
