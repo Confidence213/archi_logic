@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+    api:
+      build: ./eventmanager/
+      restart: unless-stopped
+      container_name: api
+      ports:
+      - "8080:8080"
+      depends_on:
+      - mariadb
+      networks:
+      - kent
+      
+    mariadb:
+      container_name: mariadb
+      image: mariadb
+      restart: on-failure
+      volumes:
+      - mariadb:/var/lib/mysql
+      environment:
+      - MYSQL_ROOT_PASSWORD=glopglop
+      - MYSQL_DATABASE=eventmanager
+      - MYSQL_USER=kent
+      - MYSQL_PASSWORD=glopglop
+      networks:
+      - kent
+
+networks:
+    kent:
+    
+volumes:
+    mariadb:
+
