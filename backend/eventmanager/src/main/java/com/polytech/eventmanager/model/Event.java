@@ -36,9 +36,11 @@ public class Event {
     @Column(name = "price", length = 11)
     private Integer price;
 
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            mappedBy = "events"
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_event",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<User> users = new HashSet<>();
 
