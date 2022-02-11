@@ -4,6 +4,8 @@ import com.polytech.eventmanager.model.Event;
 import com.polytech.eventmanager.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,22 +16,30 @@ public class EventService {
 
     public EventService(EventRepository repository) {
         this.repository = repository;
-        this.initUsers();
+        this.initEvents();
     }
 
-    public void initUsers() {
-        Event event1 = new Event();
-        event1.setTitle("event1");
-        event1.setPlace("Lille");
-        event1.setPrice(100);
+    public void initEvents() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        Event event2 = new Event();
-        event2.setTitle("event2");
-        event2.setPlace("Miami");
-        event2.setPrice(230);
+        try {
+            Event event1 = new Event();
+            event1.setTitle("event1");
+            event1.setPlace("Lille");
+            event1.setDate(sdf.parse("14/03/2022"));
+            event1.setPrice(100);
 
-        this.repository.save(event1);
-        this.repository.save(event2);
+            Event event2 = new Event();
+            event2.setTitle("event2");
+            event2.setPlace("Miami");
+            event2.setDate(sdf.parse("18/11/2022"));
+            event2.setPrice(230);
+
+            this.repository.save(event1);
+            this.repository.save(event2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Event> getAllEvents() {

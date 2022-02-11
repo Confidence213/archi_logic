@@ -33,7 +33,7 @@ public class Event {
     @Column(name = "date", nullable = false)
     protected Date date;
 
-    @Column(name = "price", length = 11)
+    @Column(name = "price", nullable = false, length = 11)
     private Integer price;
 
     @ManyToMany(fetch = FetchType.LAZY)
