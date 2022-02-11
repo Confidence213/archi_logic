@@ -11,6 +11,10 @@ import java.util.Date;
 public class EventDto {
 
     @NotNull
+    @JsonProperty("id")
+    private Integer id;
+
+    @NotNull
     @JsonProperty("title")
     private String title;
 
