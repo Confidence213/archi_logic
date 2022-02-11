@@ -1,6 +1,6 @@
 package com.polytech.eventmanager.controller;
 
-import com.polytech.eventmanager.dto.EventDTO;
+import com.polytech.eventmanager.dto.EventDto;
 import com.polytech.eventmanager.mapper.EventMapper;
 import com.polytech.eventmanager.model.Event;
 import com.polytech.eventmanager.service.EventService;
@@ -21,44 +21,43 @@ public class EventController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<EventDTO>> getAllEvents() {
-
+    public ResponseEntity<List<EventDto>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-        List<EventDTO> eventsDtos = EventMapper.toEventDTOList(events);
+        List<EventDto> eventsDtos = EventMapper.toEventDTOList(events);
 
         return ResponseEntity.ok(eventsDtos);
     }
 
     // todo: add other methods
     @GetMapping("/{eventId}")
-    public ResponseEntity<EventDTO> getEventById(@PathVariable Integer eventId) {
-
+    public ResponseEntity<EventDto> getEventById(@PathVariable Integer eventId) {
         Event event = eventService.getEventById(eventId);
 
         if (event == null) {
             return ResponseEntity.notFound().build();
         }
-        EventDTO dto = EventMapper.toEventDTO(event);
+        EventDto dto = EventMapper.toEventDTO(event);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping("")
-    public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO dto) {
+    public ResponseEntity<EventDto> createEvent(@RequestBody EventDto dto) {
         Event fromDto = EventMapper.toEvent(dto);
         Event createdEvent = eventService.createEvent(fromDto);
         if (createdEvent == null) {
             return ResponseEntity.badRequest().build();
         }
-        EventDTO createdEventDto = EventMapper.toEventDTO(createdEvent);
+        EventDto createdEventDto = EventMapper.toEventDTO(createdEvent);
         return ResponseEntity.ok(createdEventDto);
     }
 
     @DeleteMapping("/{eventId}")
     public ResponseEntity<Event> deleteUser(@PathVariable Integer eventId) {
         boolean deletedEvent = eventService.deleteEvent(eventId);
-        if (deletedEvent == false) {
+        if (!deletedEvent) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok().build();
     }
+
 }
