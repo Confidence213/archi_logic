@@ -9,10 +9,10 @@ import { EventService } from '../event.service';
 export class EventListComponent implements OnInit {
 
   title = "Liste des évènements :";
-  eventList;
+  eventList: any;
 
-  constructor(service: EventService) {
-    this.eventList = service.getEventList();
+  constructor(private service: EventService) {
+    let _sub = this.service.getEventList().subscribe(list => this.eventList = list);
   }
 
   ngOnInit(): void {

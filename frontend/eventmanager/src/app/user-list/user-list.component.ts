@@ -9,11 +9,10 @@ import { UserService } from '../user.service';
 export class UserListComponent implements OnInit {
 
   title = "Liste des utilisateurs :";
-
   userList: any;
 
   constructor(private service: UserService) {
-    let _sub = this.service.getUserList().subscribe(val => this.userList = val);
+    let _sub = this.service.getUserList().subscribe(list => this.userList = list);
   }
 
   ngOnInit(): void {
