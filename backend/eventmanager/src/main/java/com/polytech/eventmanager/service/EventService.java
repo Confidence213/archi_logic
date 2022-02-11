@@ -52,8 +52,7 @@ public class EventService {
     }
 
     public Event createEvent(Event givenEvent) {
-        Event found = getEventById(givenEvent.getId());
-        if (found == null) {
+        if (givenEvent.getTitle() != null && givenEvent.getPlace() != null && givenEvent.getDate() != null && givenEvent.getPrice() != 0) {
             return this.repository.save(givenEvent);
         }
         return null;

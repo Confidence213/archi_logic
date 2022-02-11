@@ -12,6 +12,7 @@ import java.util.*;
 
 @RequestMapping("/events")
 @RestController
+@CrossOrigin(maxAge = 3600)
 public class EventController {
 
     private final EventService eventService;
