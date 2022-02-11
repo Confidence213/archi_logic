@@ -17,12 +17,14 @@ public class EventDto {
     @JsonProperty("description")
     private String description;
 
+    @NotNull
     @JsonProperty("place")
     private String place;
 
     @JsonProperty("date")
     protected Date date;
 
+    @NotNull
     @JsonProperty("price")
     private Integer price;
 

@@ -23,41 +23,50 @@ public class EventController {
     @GetMapping("")
     public ResponseEntity<List<EventDto>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-        List<EventDto> eventsDtos = EventMapper.toEventDTOList(events);
+        List<EventDto> eventsDtos = EventMapper.toEventDtoList(events);
 
         return ResponseEntity.ok(eventsDtos);
     }
 
-    // todo: add other methods
     @GetMapping("/{eventId}")
     public ResponseEntity<EventDto> getEventById(@PathVariable Integer eventId) {
         Event event = eventService.getEventById(eventId);
+        if (event == null) return ResponseEntity.notFound().build();
 
-        if (event == null) {
-            return ResponseEntity.notFound().build();
-        }
-        EventDto dto = EventMapper.toEventDTO(event);
+        EventDto dto = EventMapper.toEventDto(event);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping("")
     public ResponseEntity<EventDto> createEvent(@RequestBody EventDto dto) {
         Event fromDto = EventMapper.toEvent(dto);
+
         Event createdEvent = eventService.createEvent(fromDto);
-        if (createdEvent == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        EventDto createdEventDto = EventMapper.toEventDTO(createdEvent);
+        if (createdEvent == null) return ResponseEntity.badRequest().build();
+
+        EventDto createdEventDto = EventMapper.toEventDto(createdEvent);
         return ResponseEntity.ok(createdEventDto);
     }
 
     @DeleteMapping("/{eventId}")
     public ResponseEntity<Event> deleteUser(@PathVariable Integer eventId) {
-        boolean deletedEvent = eventService.deleteEvent(eventId);
+        boolean deletedEvent = eventService.deleteEventById(eventId);
         if (!deletedEvent) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{eventId}")
+    public ResponseEntity<EventDto> updateEvent(@PathVariable Integer eventId, @RequestBody EventDto dto) {
+        Event fromDto = EventMapper.toEvent(dto);
+        fromDto.setId(eventId);
+
+        Event updatedEvent = eventService.updateEvent(fromDto);
+        if (updatedEvent == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        EventDto updatedEventDto = EventMapper.toEventDto(updatedEvent);
+        return ResponseEntity.ok(updatedEventDto);
     }
 
 }

@@ -7,25 +7,31 @@ import java.util.*;
 
 public class EventMapper {
 
-    public static EventDto toEventDTO(Event event) {
+    public static EventDto toEventDto(Event event) {
         return EventDto.builder()
-                .name(event.getName())
+                .title(event.getTitle())
+                .description(event.getDescription())
                 .place(event.getPlace())
+                .date(event.getDate())
+                .price(event.getPrice())
                 .build();
     }
 
-    public static List<EventDto> toEventDTOList(List<Event> list) {
+    public static List<EventDto> toEventDtoList(List<Event> list) {
         List<EventDto> dtoList = new ArrayList<>();
         for (Event event : list) {
-            dtoList.add(toEventDTO(event));
+            dtoList.add(toEventDto(event));
         }
         return dtoList;
     }
 
     public static Event toEvent(EventDto dto) {
         return Event.builder()
-                .name(dto.getName())
-                .Place(dto.getPlace())
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .place(dto.getPlace())
+                .date(dto.getDate())
+                .price(dto.getPrice())
                 .build();
     }
 
