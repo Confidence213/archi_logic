@@ -1,14 +1,16 @@
 package com.polytech.eventmanager.mapper;
 
-import com.polytech.eventmanager.dto.EventDto;
+import com.polytech.eventmanager.dto.EventGetDto;
+import com.polytech.eventmanager.dto.EventPostDto;
 import com.polytech.eventmanager.model.Event;
 
 import java.util.*;
 
 public class EventMapper {
 
-    public static EventDto toEventDto(Event event) {
-        return EventDto.builder()
+    public static EventGetDto toEventGetDto(Event event) {
+        return EventGetDto.builder()
+                .id(event.getId())
                 .title(event.getTitle())
                 .description(event.getDescription())
                 .place(event.getPlace())
@@ -17,15 +19,52 @@ public class EventMapper {
                 .build();
     }
 
-    public static List<EventDto> toEventDtoList(List<Event> list) {
-        List<EventDto> dtoList = new ArrayList<>();
+    public static List<EventGetDto> toEventGetDtoList(List<Event> list) {
+        List<EventGetDto> dtoList = new ArrayList<>();
         for (Event event : list) {
-            dtoList.add(toEventDto(event));
+            dtoList.add(toEventGetDto(event));
         }
         return dtoList;
     }
 
-    public static Event toEvent(EventDto dto) {
+    public static Event toEvent(EventGetDto dto) {
+        return Event.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .place(dto.getPlace())
+                .date(dto.getDate())
+                .price(dto.getPrice())
+                .build();
+    }
+
+    public static List<Event> toEventListFromGet(List<EventGetDto> list) {
+        List<Event> eventList = new ArrayList<>();
+        for (EventGetDto dto : list) {
+            eventList.add(toEvent(dto));
+        }
+        return eventList;
+    }
+
+    public static EventGetDto toEventPostDto(Event event) {
+        return EventGetDto.builder()
+                .title(event.getTitle())
+                .description(event.getDescription())
+                .place(event.getPlace())
+                .date(event.getDate())
+                .price(event.getPrice())
+                .build();
+    }
+
+    public static List<EventGetDto> toEventPostDtoList(List<Event> list) {
+        List<EventGetDto> dtoList = new ArrayList<>();
+        for (Event event : list) {
+            dtoList.add(toEventPostDto(event));
+        }
+        return dtoList;
+    }
+
+    public static Event toEvent(EventPostDto dto) {
         return Event.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
@@ -35,9 +74,9 @@ public class EventMapper {
                 .build();
     }
 
-    public static List<Event> toEventList(List<EventDto> list) {
+    public static List<Event> toEventListFromPost(List<EventPostDto> list) {
         List<Event> eventList = new ArrayList<>();
-        for (EventDto dto : list) {
+        for (EventPostDto dto : list) {
             eventList.add(toEvent(dto));
         }
         return eventList;

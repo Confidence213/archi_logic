@@ -15,12 +15,12 @@ chmod +x install.sh
 
 ## Organisation Evénementiel
 
-Workflows :
+### __Workflows :__
 - Création de compte
 - Gestion des évènements
 - Participation aux évènements
 
-Fonctionnalités :
+### __Fonctionnalités :__
 - Création de compte
   - Créer un compte
   - Modifier un compte
@@ -36,12 +36,12 @@ Fonctionnalités :
   - Ajouter au panier
   - Passer la commande
 
-Domaines :
+### __Domaines :__
 - Evènement
 - Utilisateur
 - Participant
 
-Entités :
+### __Entités :__
 - Evènement
   - Nom
   - Description
@@ -61,3 +61,8 @@ Entités :
   - Numéro billet
   - Date de commande
   - Identifant évènement
+
+### __Modèle relationnel de données :__
+
+\
+![Modèle relationnel de données](modele_relationnel.png)

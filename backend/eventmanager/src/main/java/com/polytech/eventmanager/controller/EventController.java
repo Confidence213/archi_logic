@@ -1,6 +1,7 @@
 package com.polytech.eventmanager.controller;
 
-import com.polytech.eventmanager.dto.EventDto;
+import com.polytech.eventmanager.dto.EventGetDto;
+import com.polytech.eventmanager.dto.EventPostDto;
 import com.polytech.eventmanager.mapper.EventMapper;
 import com.polytech.eventmanager.model.Event;
 import com.polytech.eventmanager.service.EventService;
@@ -22,30 +23,30 @@ public class EventController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<EventDto>> getAllEvents() {
+    public ResponseEntity<List<EventGetDto>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-        List<EventDto> eventsDtos = EventMapper.toEventDtoList(events);
+        List<EventGetDto> eventsDtos = EventMapper.toEventGetDtoList(events);
 
         return ResponseEntity.ok(eventsDtos);
     }
 
     @GetMapping("/{eventId}")
-    public ResponseEntity<EventDto> getEventById(@PathVariable Integer eventId) {
+    public ResponseEntity<EventGetDto> getEventById(@PathVariable Integer eventId) {
         Event event = eventService.getEventById(eventId);
         if (event == null) return ResponseEntity.notFound().build();
 
-        EventDto dto = EventMapper.toEventDto(event);
+        EventGetDto dto = EventMapper.toEventGetDto(event);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping("")
-    public ResponseEntity<EventDto> createEvent(@RequestBody EventDto dto) {
+    public ResponseEntity<EventGetDto> createEvent(@RequestBody EventPostDto dto) {
         Event fromDto = EventMapper.toEvent(dto);
 
         Event createdEvent = eventService.createEvent(fromDto);
         if (createdEvent == null) return ResponseEntity.badRequest().build();
 
-        EventDto createdEventDto = EventMapper.toEventDto(createdEvent);
+        EventGetDto createdEventDto = EventMapper.toEventGetDto(createdEvent);
         return ResponseEntity.ok(createdEventDto);
     }
 
@@ -59,14 +60,14 @@ public class EventController {
     }
 
     @PatchMapping("/{eventId}")
-    public ResponseEntity<EventDto> updateEvent(@PathVariable Integer eventId, @RequestBody EventDto dto) {
+    public ResponseEntity<EventGetDto> updateEvent(@PathVariable Integer eventId, @RequestBody EventPostDto dto) {
         Event fromDto = EventMapper.toEvent(dto);
         fromDto.setId(eventId);
 
         Event updatedEvent = eventService.updateEvent(fromDto);
         if (updatedEvent == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-        EventDto updatedEventDto = EventMapper.toEventDto(updatedEvent);
+        EventGetDto updatedEventDto = EventMapper.toEventGetDto(updatedEvent);
         return ResponseEntity.ok(updatedEventDto);
     }
 

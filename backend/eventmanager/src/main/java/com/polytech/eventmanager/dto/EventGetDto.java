@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Builder
-public class EventDto {
+public class EventGetDto {
 
     @NotNull
     @JsonProperty("id")
@@ -25,10 +25,10 @@ public class EventDto {
     @JsonProperty("place")
     private String place;
 
+    @NotNull
     @JsonProperty("date")
     protected Date date;
 
-    @NotNull
     @JsonProperty("price")
     private Integer price;
 
