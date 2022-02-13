@@ -12,7 +12,7 @@ public class EventGetDto {
 
     @NotNull
     @JsonProperty("id")
-    private Integer id;
+    private Long id;
 
     @NotNull
     @JsonProperty("title")

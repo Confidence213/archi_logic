@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,8 +17,7 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(length = 11)
-    private Integer id;
+    private Long id;
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;
@@ -36,12 +34,7 @@ public class Event {
     @Column(name = "price", nullable = false, length = 11)
     private Integer price;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_event",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> users = new HashSet<>();
+    @OneToMany(mappedBy = "event")
+    private Set<EventSubscription> participants;
 
 }

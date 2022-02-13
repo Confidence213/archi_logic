@@ -1,5 +1,6 @@
 package com.polytech.eventmanager.service;
 
+import com.polytech.eventmanager.model.EventSubscription;
 import com.polytech.eventmanager.model.User;
 import com.polytech.eventmanager.repository.UserRepository;
 import org.springframework.stereotype.Service;

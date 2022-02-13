@@ -46,20 +46,20 @@ public class EventService {
         return this.repository.findAll();
     }
 
-    public Event getEventById(Integer id) {
+    public Event getEventById(Long id) {
         Optional<Event> found = this.repository.findById(id);
         return found.orElse(null);
     }
 
     public Event createEvent(Event givenEvent) {
-        if (givenEvent.getTitle() != null && givenEvent.getPlace() != null && givenEvent.getDate() != null && givenEvent.getPrice() != 0) {
+        if (givenEvent.getTitle() != null && givenEvent.getPlace() != null && givenEvent.getDate() != null && givenEvent.getPrice() != null) {
             return this.repository.save(givenEvent);
         }
         return null;
     }
 
-    public boolean deleteEventById(Integer eventId) {
-        Event found = getEventById(eventId);
+    public boolean deleteEventById(Long id) {
+        Event found = getEventById(id);
         if (found != null) {
             this.repository.deleteById(found.getId());
             return true;
@@ -70,7 +70,6 @@ public class EventService {
     public Event updateEvent(Event givenEvent) {
         Event found = getEventById(givenEvent.getId());
         if (found != null) {
-            givenEvent.setId(found.getId());
             return this.repository.save(givenEvent);
         }
         return null;
