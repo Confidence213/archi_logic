@@ -11,11 +11,11 @@ import javax.validation.constraints.NotNull;
 public class SubscriptionPostDto {
 
     @NotNull
-    @JsonProperty("user_username")
-    private String userUsername;
+    @JsonProperty("username")
+    private String username;
 
     @NotNull
-    @JsonProperty("event_id")
+    @JsonProperty("eventId")
     private Long eventId;
 
 }

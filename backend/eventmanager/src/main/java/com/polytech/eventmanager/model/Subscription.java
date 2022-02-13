@@ -14,24 +14,21 @@ import java.util.Date;
 @Table(name = "subscriptions")
 public class Subscription {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ticket_number")
-    private Long id;
+    @EmbeddedId
+    private SubscriptionId id = new SubscriptionId();
 
-    @Column(name = "user_username")
-    private String userUsername;
-
-    @Column(name = "event_id")
-    private Long eventId;
-
-    @ManyToOne
-    @JoinColumn(name = "user_username", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @MapsId("eventId")
+    @JoinColumn(name = "event_id")
     private Event event;
+
+    @Column(name = "ticket_number", columnDefinition = "BIGINT(20) NOT NULL UNIQUE KEY auto_increment")
+    private Long ticketNumber;
 
     @Column(name = "date_of_order", nullable = false)
     private Date dateOfOrder;

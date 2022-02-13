@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,7 +35,7 @@ public class Event {
     @Column(name = "price", nullable = false, length = 11)
     private Integer price;
 
-    @OneToMany(mappedBy = "event")
-    private Set<Subscription> participants;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private Set<Subscription> participants = new HashSet<>();
 
 }

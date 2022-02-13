@@ -12,19 +12,19 @@ import java.util.Date;
 public class SubscriptionGetDto {
 
     @NotNull
-    @JsonProperty("ticket_number")
-    private Long id;
+    @JsonProperty("username")
+    private String username;
 
     @NotNull
-    @JsonProperty("user_username")
-    private String userUsername;
-
-    @NotNull
-    @JsonProperty("event_id")
+    @JsonProperty("eventId")
     private Long eventId;
 
     @NotNull
-    @JsonProperty("date_of_order")
+    @JsonProperty("ticketNumber")
+    private Long ticketNumber;
+
+    @NotNull
+    @JsonProperty("dateOfOrder")
     protected Date dateOfOrder;
 
 }

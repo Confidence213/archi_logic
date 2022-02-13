@@ -4,6 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -37,7 +38,7 @@ public class User {
     @Column(name = "password", length = 50)
     protected String password;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Subscription> subscriptions;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Subscription> subscriptions = new HashSet<>();
 
 }

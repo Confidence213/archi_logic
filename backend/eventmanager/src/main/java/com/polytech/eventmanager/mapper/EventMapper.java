@@ -46,8 +46,8 @@ public class EventMapper {
         return eventList;
     }
 
-    public static EventGetDto toEventPostDto(Event event) {
-        return EventGetDto.builder()
+    public static EventPostDto toEventPostDto(Event event) {
+        return EventPostDto.builder()
                 .title(event.getTitle())
                 .description(event.getDescription())
                 .place(event.getPlace())
@@ -56,8 +56,8 @@ public class EventMapper {
                 .build();
     }
 
-    public static List<EventGetDto> toEventPostDtoList(List<Event> list) {
-        List<EventGetDto> dtoList = new ArrayList<>();
+    public static List<EventPostDto> toEventPostDtoList(List<Event> list) {
+        List<EventPostDto> dtoList = new ArrayList<>();
         for (Event event : list) {
             dtoList.add(toEventPostDto(event));
         }

@@ -9,38 +9,37 @@ import com.polytech.eventmanager.model.User;
 import com.polytech.eventmanager.service.EventService;
 import com.polytech.eventmanager.service.SubscriptionService;
 import com.polytech.eventmanager.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
-@RequestMapping("/subscription")
+@RequestMapping("/subscriptions")
 @RestController
 @CrossOrigin(maxAge = 3600)
 public class SubscriptionController {
 
-    private final SubscriptionService subscriptionService;
-    private final UserService userService;
-    private final EventService eventService;
-
-    public SubscriptionController(SubscriptionService subscriptionService, UserService userService, EventService eventService) {
-        this.subscriptionService = subscriptionService;
-        this.userService = userService;
-        this.eventService = eventService;
-    }
+    @Autowired
+    private SubscriptionService subscriptionService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private EventService eventService;
 
     @GetMapping("")
     public ResponseEntity<List<SubscriptionGetDto>> getAllSubscriptions() {
-        List<Subscription> subscriptions = subscriptionService.getAllEventSubscriptions();
+        List<Subscription> subscriptions = subscriptionService.getAllSubscriptions();
         List<SubscriptionGetDto> dtos = SubscriptionMapper.toSubscriptionGetDtoList(subscriptions);
 
         return ResponseEntity.ok(dtos);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SubscriptionGetDto> getSubscriptionById(@PathVariable Long id) {
-        Subscription subscription = subscriptionService.getEventSubscriptionById(id);
+    @GetMapping("/{ticketNumber}")
+    public ResponseEntity<SubscriptionGetDto> getSubscriptionByTicketNumber(@PathVariable Long ticketNumber) {
+        Subscription subscription = subscriptionService.getSubscriptionByTicketNumber(ticketNumber);
         if (subscription == null) return ResponseEntity.notFound().build();
 
         SubscriptionGetDto dto = SubscriptionMapper.toSubscriptionGetDto(subscription);
@@ -49,38 +48,42 @@ public class SubscriptionController {
 
     @PostMapping("")
     public ResponseEntity<SubscriptionGetDto> createSubscription(@RequestBody SubscriptionPostDto dto) {
-        Subscription fromDto = SubscriptionMapper.toSubscription(dto);
+        User foundUser = userService.getUserByUsername(dto.getUsername());
+        Event foundEvent = eventService.getEventById(dto.getEventId());
+        if (foundUser == null || foundEvent == null) return ResponseEntity.notFound().build();
 
-        User user = userService.getUserByUsername(fromDto.getUserUsername());
-        Event event = eventService.getEventById(fromDto.getEventId());
-        if (user == null || event == null) return ResponseEntity.notFound().build();
+        Subscription fromDto = SubscriptionMapper.toSubscription(foundUser, foundEvent);
+        fromDto.setDateOfOrder(new Date());
 
-        Subscription createdSubscription = subscriptionService.createEventSubscription(fromDto);
+        Subscription createdSubscription = subscriptionService.createSubscription(fromDto);
         if (createdSubscription == null) return ResponseEntity.badRequest().build();
 
         SubscriptionGetDto createdEventSubscriptionDto = SubscriptionMapper.toSubscriptionGetDto(createdSubscription);
         return ResponseEntity.ok(createdEventSubscriptionDto);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<SubscriptionGetDto> deleteSubscription(@PathVariable Long id) {
-        boolean deletedEventSubscription = subscriptionService.deleteEventSubscriptionById(id);
+    @DeleteMapping("/{ticketNumber}")
+    public ResponseEntity<SubscriptionGetDto> deleteSubscription(@PathVariable Long ticketNumber) {
+        boolean deletedEventSubscription = subscriptionService.deleteSubscriptionByTicketNumber(ticketNumber);
         if (!deletedEventSubscription) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<SubscriptionGetDto> updateSubscription(@PathVariable Long id, @RequestBody SubscriptionPostDto dto) {
-        Subscription fromDto = SubscriptionMapper.toSubscription(dto);
-        fromDto.setId(id);
+    @PatchMapping("/{ticketNumber}")
+    public ResponseEntity<SubscriptionGetDto> updateSubscription(
+            @PathVariable Long ticketNumber,
+            @RequestBody SubscriptionPostDto dto) {
+        User foundUser = userService.getUserByUsername(dto.getUsername());
+        Event foundEvent = eventService.getEventById(dto.getEventId());
+        if (foundUser == null || foundEvent == null) return ResponseEntity.notFound().build();
 
-        User user = userService.getUserByUsername(fromDto.getUserUsername());
-        Event event = eventService.getEventById(fromDto.getEventId());
-        if (user == null || event == null) return ResponseEntity.notFound().build();
+        Subscription fromDto = SubscriptionMapper.toSubscription(foundUser, foundEvent);
+        fromDto.setTicketNumber(ticketNumber);
+        fromDto.setDateOfOrder(new Date());
 
-        Subscription updatedSubscription = subscriptionService.updateEventSubscription(fromDto);
+        Subscription updatedSubscription = subscriptionService.updateSubscription(fromDto);
         if (updatedSubscription == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         SubscriptionGetDto updatedEventSubscriptionDto = SubscriptionMapper.toSubscriptionGetDto(updatedSubscription);

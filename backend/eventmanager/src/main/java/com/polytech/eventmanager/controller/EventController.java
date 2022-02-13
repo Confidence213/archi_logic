@@ -30,9 +30,9 @@ public class EventController {
         return ResponseEntity.ok(dtos);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EventGetDto> getEventById(@PathVariable Long id) {
-        Event event = eventService.getEventById(id);
+    @GetMapping("/{eventId}")
+    public ResponseEntity<EventGetDto> getEventById(@PathVariable Long eventId) {
+        Event event = eventService.getEventById(eventId);
         if (event == null) return ResponseEntity.notFound().build();
 
         EventGetDto dto = EventMapper.toEventGetDto(event);
@@ -50,19 +50,19 @@ public class EventController {
         return ResponseEntity.ok(createdEventDto);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<EventGetDto> deleteEvent(@PathVariable Long id) {
-        boolean deletedEvent = eventService.deleteEventById(id);
+    @DeleteMapping("/{eventId}")
+    public ResponseEntity<EventGetDto> deleteEvent(@PathVariable Long eventId) {
+        boolean deletedEvent = eventService.deleteEventById(eventId);
         if (!deletedEvent) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<EventGetDto> updateEvent(@PathVariable Long id, @RequestBody EventPostDto dto) {
+    @PatchMapping("/{eventId}")
+    public ResponseEntity<EventGetDto> updateEvent(@PathVariable Long eventId, @RequestBody EventPostDto dto) {
         Event fromDto = EventMapper.toEvent(dto);
-        fromDto.setId(id);
+        fromDto.setId(eventId);
 
         Event updatedEvent = eventService.updateEvent(fromDto);
         if (updatedEvent == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
