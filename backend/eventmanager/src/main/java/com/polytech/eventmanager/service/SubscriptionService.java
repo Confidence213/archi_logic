@@ -28,7 +28,7 @@ public class SubscriptionService {
 
     public Subscription createEventSubscription(Subscription givenSubscription) {
         givenSubscription.setDateOfOrder(new Date());
-        if (givenSubscription.getUsername() != null && givenSubscription.getEventId() != 0) {
+        if (givenSubscription.getUserUsername() != null && givenSubscription.getEventId() != 0) {
             return this.repository.save(givenSubscription);
         }
         return null;
@@ -45,7 +45,7 @@ public class SubscriptionService {
 
     public Subscription updateEventSubscription(Subscription givenSubscription) {
         Subscription found = getEventSubscriptionById(givenSubscription.getId());
-        if (found != null && givenSubscription.getUsername() != null && givenSubscription.getEventId() != 0) {
+        if (found != null && givenSubscription.getUserUsername() != null && givenSubscription.getEventId() != 0) {
             givenSubscription.setDateOfOrder(found.getDateOfOrder());
             return this.repository.save(givenSubscription);
         }

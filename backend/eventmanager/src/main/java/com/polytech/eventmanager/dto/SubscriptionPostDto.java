@@ -12,7 +12,7 @@ public class SubscriptionPostDto {
 
     @NotNull
     @JsonProperty("user_username")
-    private String username;
+    private String userUsername;
 
     @NotNull
     @JsonProperty("event_id")

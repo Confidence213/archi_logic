@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
-    @Query(value = "select s.event_id from user_event s WHERE s.user_username= :username", nativeQuery = true)
+    @Query(value = "select s.event_id from subscriptions s WHERE s.user_username= :username", nativeQuery = true)
     List<Long> findOrderedEventsFromUser(@Param("username") String username);
 
-    @Query(value = "select count(*) from user_event s WHERE s.event_id= :eventId", nativeQuery = true)
+    @Query(value = "select count(*) from subscriptions s WHERE s.event_id= :eventId", nativeQuery = true)
     Integer findNumberOfParticipantsForEvent(@Param("eventId") Long eventId);
 
 }

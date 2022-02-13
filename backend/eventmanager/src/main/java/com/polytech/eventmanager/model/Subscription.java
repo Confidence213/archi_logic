@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user_event")
+@Table(name = "subscriptions")
 public class Subscription {
 
     @Id
@@ -20,13 +20,13 @@ public class Subscription {
     private Long id;
 
     @Column(name = "user_username")
-    private String username;
+    private String userUsername;
 
     @Column(name = "event_id")
     private Long eventId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_username", insertable = false, updatable = false)
     private User user;
 
     @ManyToOne

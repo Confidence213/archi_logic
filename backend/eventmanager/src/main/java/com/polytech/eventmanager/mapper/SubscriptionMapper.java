@@ -12,7 +12,7 @@ public class SubscriptionMapper {
     public static SubscriptionGetDto toSubscriptionGetDto(Subscription subscription) {
         return SubscriptionGetDto.builder()
                 .id(subscription.getId())
-                .username(subscription.getUsername())
+                .userUsername(subscription.getUserUsername())
                 .eventId(subscription.getEventId())
                 .dateOfOrder(subscription.getDateOfOrder())
                 .build();
@@ -29,7 +29,7 @@ public class SubscriptionMapper {
     public static Subscription toSubscription(SubscriptionGetDto dto) {
         return Subscription.builder()
                 .id(dto.getId())
-                .username(dto.getUsername())
+                .userUsername(dto.getUserUsername())
                 .eventId(dto.getEventId())
                 .dateOfOrder(dto.getDateOfOrder())
                 .build();
@@ -45,7 +45,7 @@ public class SubscriptionMapper {
 
     public static SubscriptionGetDto toSubscriptionPostDto(Subscription subscription) {
         return SubscriptionGetDto.builder()
-                .username(subscription.getUsername())
+                .userUsername(subscription.getUserUsername())
                 .eventId(subscription.getEventId())
                 .build();
     }
@@ -60,7 +60,7 @@ public class SubscriptionMapper {
 
     public static Subscription toSubscription(SubscriptionPostDto dto) {
         return Subscription.builder()
-                .username(dto.getUsername())
+                .userUsername(dto.getUserUsername())
                 .eventId(dto.getEventId())
                 .build();
     }
