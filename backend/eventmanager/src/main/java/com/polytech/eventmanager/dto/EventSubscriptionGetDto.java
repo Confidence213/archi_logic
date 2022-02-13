@@ -23,6 +23,7 @@ public class EventSubscriptionGetDto {
     @JsonProperty("event_id")
     private Long eventId;
 
+    @NotNull
     @JsonProperty("date_of_order")
     protected Date dateOfOrder;
 

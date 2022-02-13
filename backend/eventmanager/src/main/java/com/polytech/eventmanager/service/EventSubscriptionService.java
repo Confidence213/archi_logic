@@ -45,7 +45,8 @@ public class EventSubscriptionService {
 
     public EventSubscription updateEventSubscription(EventSubscription givenEventSubscription) {
         EventSubscription found = getEventSubscriptionById(givenEventSubscription.getId());
-        if (found != null) {
+        if (found != null && givenEventSubscription.getUsername() != null && givenEventSubscription.getEventId() != 0) {
+            givenEventSubscription.setDateOfOrder(found.getDateOfOrder());
             return this.repository.save(givenEventSubscription);
         }
         return null;
