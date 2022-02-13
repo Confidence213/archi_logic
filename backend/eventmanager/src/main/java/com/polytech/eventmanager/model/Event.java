@@ -35,6 +35,6 @@ public class Event {
     private Integer price;
 
     @OneToMany(mappedBy = "event")
-    private Set<EventSubscription> participants;
+    private Set<Subscription> participants;
 
 }

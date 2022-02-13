@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @Builder
-public class EventSubscriptionGetDto {
+public class SubscriptionGetDto {
 
     @NotNull
     @JsonProperty("ticket_number")

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
-public class EventSubscriptionPostDto {
+public class SubscriptionPostDto {
 
     @NotNull
     @JsonProperty("user_username")

@@ -25,9 +25,9 @@ public class EventController {
     @GetMapping("")
     public ResponseEntity<List<EventGetDto>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-        List<EventGetDto> eventsDtos = EventMapper.toEventGetDtoList(events);
+        List<EventGetDto> dtos = EventMapper.toEventGetDtoList(events);
 
-        return ResponseEntity.ok(eventsDtos);
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")

@@ -38,6 +38,6 @@ public class User {
     protected String password;
 
     @OneToMany(mappedBy = "user")
-    private Set<EventSubscription> eventSubscriptions;
+    private Set<Subscription> subscriptions;
 
 }
