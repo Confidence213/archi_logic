@@ -15,6 +15,9 @@ import { EventDestroyerComponent } from './event-destroyer/event-destroyer.compo
 import { UserListComponent } from './user-list/user-list.component';
 import { UserCreatorComponent } from './user-creator/user-creator.component';
 import { UserDestroyerComponent } from './user-destroyer/user-destroyer.component';
+import { SubscriptionListComponent } from './subscription-list/subscription-list.component';
+import { SubscriptionCreatorComponent } from './subscription-creator/subscription-creator.component';
+import { SubscriptionDestroyerComponent } from './subscription-destroyer/subscription-destroyer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { UserDestroyerComponent } from './user-destroyer/user-destroyer.componen
     EventDestroyerComponent,
     UserListComponent,
     UserDestroyerComponent,
-    UserCreatorComponent
+    UserCreatorComponent,
+    SubscriptionListComponent,
+    SubscriptionCreatorComponent,
+    SubscriptionDestroyerComponent
   ],
   imports: [
     BrowserModule,

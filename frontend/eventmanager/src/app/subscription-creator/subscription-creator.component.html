@@ -1,0 +1,12 @@
+<div>
+    <form [formGroup]="subscriptionForm" (ngSubmit)="addSubscription()">
+      <label for="username">*Username: </label>
+      <input id="username" formControlName="username" required />
+      <br />
+      <label for="eventId">*Event id: </label>
+      <input id="eventId" type="number" formControlName="eventId" required />
+      <br />
+      <p>*: mandatory fields</p>
+      <button type="submit" [disabled]="!subscriptionForm.valid">Add subscription</button>
+    </form>
+  </div>

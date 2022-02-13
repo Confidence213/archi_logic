@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-export type ContentType = 'users' | 'events';
+export type ContentType = 'users' | 'events' | 'subscriptions';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,10 @@ export class AppComponent {
 
   get showEventContent() {
     return this.content === 'events';
+  }
+
+  get showSubscriptionContent() {
+    return this.content === 'subscriptions';
   }
 
   toggleEditor(type: ContentType) {

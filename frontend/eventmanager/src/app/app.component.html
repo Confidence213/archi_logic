@@ -2,6 +2,7 @@
 <nav>
   <button type="button" (click)="toggleEditor('users')">Users</button>
   <button type="button" (click)="toggleEditor('events')">Events</button>
+  <button type="button" (click)="toggleEditor('subscriptions')">Subscriptions</button>
 </nav>
 <br/>
 <div *ngIf="showUserContent">
@@ -13,5 +14,10 @@
     <app-event-list></app-event-list>
     <hr/>
     <app-event-creator></app-event-creator>
+</div>
+<div *ngIf="showSubscriptionContent">
+    <app-subscription-list></app-subscription-list>
+    <hr/>
+    <app-subscription-creator></app-subscription-creator>
 </div>
 

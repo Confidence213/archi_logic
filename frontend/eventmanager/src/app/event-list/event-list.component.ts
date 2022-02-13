@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { EventService } from '../event.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { EventService } from '../event.service';
 })
 export class EventListComponent implements OnInit {
 
-  title = "Liste des évènements :";
+  title = "Event list:";
   eventList: any;
 
   constructor(private service: EventService) {
