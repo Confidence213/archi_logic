@@ -1,30 +1,31 @@
 package com.polytech.eventmanager.repository;
 
 import com.polytech.eventmanager.model.Subscription;
+import com.polytech.eventmanager.model.SubscriptionId;
+import com.polytech.eventmanager.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
+public interface SubscriptionRepository extends JpaRepository<Subscription, SubscriptionId> {
 
-    @Query(value = "select s.* from subscriptions s where s.ticket_number= :ticketNumber", nativeQuery = true)
-    Optional<Subscription> findByTicketNumber(@Param("ticketNumber") Long ticketNumber);
-
-    @Query(value = "select s.* from subscriptions s where s.user_id= :userId and s.event_id= :eventId", nativeQuery = true)
+    @Query(value = "select s.* from subscriptions s where s.user_id = :userId and s.event_id = :eventId", nativeQuery = true)
     Optional<Subscription> findById(@Param("userId") Long userId, @Param("eventId") Long eventId);
 
-    @Query(value = "delete s.* from subscriptions s where s.ticket_number= :ticketNumber", nativeQuery = true)
-    void deleteByTicketNumber(@Param("ticketNumber") Long ticketNumber);
+    Optional<Subscription> findByTicketNumber(Long ticketNumber);
 
-    @Query(value = "select count(*) from subscriptions s where s.event_id= :eventId", nativeQuery = true)
-    Integer findNumberOfParticipantsForEvent(@Param("eventId") Long eventId);
+    @Transactional
+    void deleteByTicketNumber(Long ticketNumber);
 
-    @Query(value = "select s.event_id from subscriptions s where s.user_username= :username", nativeQuery = true)
-    List<Long> findOrderedEventsByUser(@Param("username") String username);
+    Long countByEventId(Long eventId);
+
+    @Query(value = "select s.event_id from subscriptions s where s.username = :username", nativeQuery = true)
+    List<Long> findEventsPurchasedByUser(@Param("username") String username);
 
 }

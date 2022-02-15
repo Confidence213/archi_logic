@@ -1,6 +1,7 @@
 package com.polytech.eventmanager.service;
 
 import com.polytech.eventmanager.model.Subscription;
+import com.polytech.eventmanager.model.SubscriptionId;
 import com.polytech.eventmanager.repository.SubscriptionRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +26,18 @@ public class SubscriptionService {
         return found.orElse(null);
     }
 
+    public Long getEventParticipantNumber(Long eventId) {
+        return this.repository.countByEventId(eventId);
+    }
+
     public Subscription createSubscription(Subscription givenSubscription) {
-        Optional<Subscription> found = this.repository.findById(
-                givenSubscription.getId().getUserId(),
-                givenSubscription.getId().getEventId());
+        Optional<Subscription> found = this.repository.findById(givenSubscription.getId());
         if (found.isEmpty()) {
             return this.repository.save(givenSubscription);
         }
         return null;
     }
 
-    // todo: solve error with repository sql request
     public boolean deleteSubscriptionByTicketNumber(Long ticketNumber) {
         Subscription found = getSubscriptionByTicketNumber(ticketNumber);
         if (found != null) {
@@ -45,13 +47,11 @@ public class SubscriptionService {
         return false;
     }
 
-    // todo: solve error of saving duplicate
+    /*
     public Subscription updateSubscription(Subscription givenSubscription) {
         Subscription found = getSubscriptionByTicketNumber(givenSubscription.getTicketNumber());
         if (found != null) {
-            Optional<Subscription> found2 = this.repository.findById(
-                    givenSubscription.getId().getUserId(),
-                    givenSubscription.getId().getEventId());
+            Optional<Subscription> found2 = this.repository.findById(givenSubscription.getId());
             if (found2.isEmpty()) {
                 return this.repository.save(givenSubscription);
             }
@@ -59,6 +59,7 @@ public class SubscriptionService {
         }
         return null;
     }
+    */
 
 }
 

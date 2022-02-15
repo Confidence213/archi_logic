@@ -46,6 +46,12 @@ public class SubscriptionController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/{eventId}/count")
+    public ResponseEntity<Long> getEventParticipantNumber(@PathVariable Long eventId) {
+        if (eventService.getEventById(eventId) == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(subscriptionService.getEventParticipantNumber(eventId));
+    }
+
     @PostMapping("")
     public ResponseEntity<SubscriptionGetDto> createSubscription(@RequestBody SubscriptionPostDto dto) {
         User foundUser = userService.getUserByUsername(dto.getUsername());
@@ -71,6 +77,7 @@ public class SubscriptionController {
         return ResponseEntity.ok().build();
     }
 
+    /*
     @PatchMapping("/{ticketNumber}")
     public ResponseEntity<SubscriptionGetDto> updateSubscription(
             @PathVariable Long ticketNumber,
@@ -89,5 +96,6 @@ public class SubscriptionController {
         SubscriptionGetDto updatedEventSubscriptionDto = SubscriptionMapper.toSubscriptionGetDto(updatedSubscription);
         return ResponseEntity.ok(updatedEventSubscriptionDto);
     }
+    */
 
 }
