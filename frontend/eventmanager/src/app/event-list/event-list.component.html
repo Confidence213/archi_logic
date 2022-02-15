@@ -1,7 +1,7 @@
 <h2>{{ title }}</h2>
 <ul>
     <li *ngFor="let event of eventList">
-        {{ event.title }}
+        {{ event.id }} → {{ event.title }}
         <app-event-destroyer [eventId]=event.id></app-event-destroyer>
     </li>
 </ul>

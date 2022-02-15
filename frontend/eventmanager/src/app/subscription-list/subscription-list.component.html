@@ -1,7 +1,7 @@
 <h2>{{ title }}</h2>
 <ul>
     <li *ngFor="let subscription of subscriptionList">
-        Ticket N°{{ subscription.ticketNumber }}
+        Ticket N°{{ subscription.ticketNumber }} → {{ subscription.username }} purchased event with ID {{ subscription.eventId }}
         <app-subscription-destroyer [ticketNumber]=subscription.ticketNumber></app-subscription-destroyer>
     </li>
 </ul>
