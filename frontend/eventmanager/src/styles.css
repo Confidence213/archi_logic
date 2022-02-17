@@ -43,7 +43,11 @@ h2 {
     margin-left: 2%;
 }
 
-li {
+ul {
+    list-style-type: square;
+}
+
+li div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -58,7 +62,7 @@ app-subscription-destroyer {
 }
 
 button.delete {
-    padding: 3px 6px;
+    padding: 4px 8px;
 }
 
 /* creator */
@@ -106,10 +110,15 @@ button {
     transition-duration: 400ms;
 }
 
-button:hover {
+button:hover:enabled {
     background-color: cornflowerblue;
     color: black;
     font-weight: bold;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 input {
