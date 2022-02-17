@@ -1,1 +1,123 @@
-/* You can add global styles to this file, and also import other style files */
+
+/* page */
+
+body {
+    background-color: snow;
+    font-family: Verdana, Tahoma, sans-serif;
+    width: 90%;
+    margin: auto;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+h1 {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+/* list */
+
+app-user-list,
+app-event-list,
+app-subscription-list {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-left: 2%;
+}
+
+li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* destroyer */
+
+app-user-destroyer,
+app-event-destroyer,
+app-subscription-destroyer {
+    cursor: pointer;
+}
+
+button.delete {
+    padding: 3px 6px;
+}
+
+/* creator */
+
+app-user-creator,
+app-event-creator,
+app-subscription-creator {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+app-user-creator div,
+app-event-creator div,
+app-subscription-creator div {
+    width: 60%;
+}
+
+form {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+label {
+    display: block;
+    margin: .5em 0;
+    font-weight: bold;
+}
+
+form p {
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: royalblue;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    max-width: 300px;
+    border: none;
+    padding: 10px 20px;
+    transition-duration: 400ms;
+}
+
+button:hover {
+    background-color: cornflowerblue;
+    color: black;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
