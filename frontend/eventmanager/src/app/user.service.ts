@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { User } from './user';
@@ -9,6 +9,8 @@ import { User } from './user';
   providedIn: 'root'
 })
 export class UserService {
+
+  private notifier = new Subject<any>();
   
   private url = 'http://localhost:8080/users';
   
@@ -19,6 +21,14 @@ export class UserService {
   };
 
   constructor(private http: HttpClient) { }
+
+  sendUpdate(message: string) {
+    this.notifier.next(message);
+  }
+
+  getUpdate(): Observable<any> {
+      return this.notifier.asObservable();
+  }
 
   getUserList(): Observable<User[]> {
     return this.http.get<User[]>(this.url, this.httpOptions).pipe(

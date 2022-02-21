@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { EventService } from '../event.service';
 
@@ -7,16 +7,21 @@ import { EventService } from '../event.service';
   templateUrl: './event-list.component.html',
   styleUrls: ['./event-list.component.css']
 })
-export class EventListComponent implements OnInit {
+export class EventListComponent implements OnInit, OnDestroy {
 
   title = "Event list:";
   eventList: any;
+  sub: any;
 
   constructor(private service: EventService) {
-    let _sub = this.service.getEventList().subscribe(list => this.eventList = list);
   }
 
   ngOnInit(): void {
+    this.sub = this.service.getEventList().subscribe(list => this.eventList = list);
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) this.sub.unsubscribe();
   }
 
 }

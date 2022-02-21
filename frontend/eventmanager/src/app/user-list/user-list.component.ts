@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { UserService } from '../user.service';
 
@@ -7,16 +7,29 @@ import { UserService } from '../user.service';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
 
   title = "User list:";
   userList: any;
+  sub: any;
 
   constructor(private service: UserService) {
-    let _sub = this.service.getUserList().subscribe(list => this.userList = list);
+    this.service.getUserList().subscribe(list => this.userList = list);
   }
 
   ngOnInit(): void {
+    this.sub = this.service.getUpdate().subscribe(message => {
+      this.log(message);
+      this.service.getUserList().subscribe(list => this.userList = list);
+    })
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) this.sub.unsubscribe();
+  }
+
+  private log(message: string) {
+    console.log(`UserListComponent: ${message}`);
   }
 
 }
