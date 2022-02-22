@@ -20,7 +20,7 @@ export class UserCreatorComponent implements OnInit {
     password: ['']
   });
 
-  error = "";
+  error: any;
 
   constructor(private fb: FormBuilder, private service: UserService) { }
 
@@ -29,9 +29,18 @@ export class UserCreatorComponent implements OnInit {
 
   addUser() {
     this.service.addUser(this.userForm.value as User).subscribe(
-      _ => this.service.sendUpdate("update from UserCreatorComponent")
+      _ => this.service.sendUpdate("update from UserCreatorComponent"),
     );
     this.userForm.reset();
+  }
+
+  checkPressedKey(event: any) {
+    let input = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z0-9-_]/.test(input)) return true;
+    else {
+      event.preventDefault();
+      return false;
+    }
   }
 
 }

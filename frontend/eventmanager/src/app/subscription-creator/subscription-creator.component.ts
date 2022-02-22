@@ -16,7 +16,7 @@ export class SubscriptionCreatorComponent implements OnInit {
     eventId: ['', Validators.required]
   });
 
-  error = "";
+  error: any;
 
   constructor(private fb: FormBuilder, private service: SubscriptionService) { }
 

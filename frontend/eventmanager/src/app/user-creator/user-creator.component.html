@@ -1,7 +1,7 @@
 <div>
   <form [formGroup]="userForm" (ngSubmit)="addUser()">
     <label for="username">*Username: </label>
-    <input id="username" formControlName="username" required />
+    <input id="username" formControlName="username" (keypress)="checkPressedKey($event)" required />
     <br />
     <label for="firstname">Firstname: </label>
     <input id="firstname" formControlName="firstname" />
