@@ -48,7 +48,17 @@ export class UserService {
   addUser(user: User): Observable<User> {
     return this.http.post<User>(this.url, user, this.httpOptions).pipe(
       tap((newUser: User) => this.log(`added user username=${newUser.username}`)),
-      catchError(this.handleError<User>('addUser'))
+      catchError(err => {
+        switch (err.status) {
+          case 400:
+            err.message = "The username is already taken."
+            break;
+          default:
+            err.message = "An error occured."
+        }
+        console.error(err.message, err);
+        throw err;
+      })
     );
   }
 

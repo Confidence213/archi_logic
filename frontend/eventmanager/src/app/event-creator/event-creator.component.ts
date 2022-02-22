@@ -18,8 +18,7 @@ export class EventCreatorComponent implements OnInit {
     date: ['', Validators.required],
     price: ['', Validators.required]
   });
-
-  error: any;
+  error = "";
 
   constructor(private fb: FormBuilder, private service: EventService) { }
 

@@ -19,8 +19,7 @@ export class UserCreatorComponent implements OnInit {
     email: [''],
     password: ['']
   });
-
-  error: any;
+  error = "";
 
   constructor(private fb: FormBuilder, private service: UserService) { }
 
@@ -30,8 +29,9 @@ export class UserCreatorComponent implements OnInit {
   addUser() {
     this.service.addUser(this.userForm.value as User).subscribe(
       _ => this.service.sendUpdate("update from UserCreatorComponent"),
+      err => this.error = err.message,
+      () => this.userForm.reset()
     );
-    this.userForm.reset();
   }
 
   checkPressedKey(event: any) {
