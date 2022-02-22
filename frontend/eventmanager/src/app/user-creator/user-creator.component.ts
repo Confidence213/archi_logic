@@ -28,7 +28,9 @@ export class UserCreatorComponent implements OnInit {
   }
 
   addUser() {
-    this.service.addUser(this.userForm.value as User).subscribe(_ => this.service.sendUpdate("update from UserCreatorComponent"));
+    this.service.addUser(this.userForm.value as User).subscribe(
+      _ => this.service.sendUpdate("update from UserCreatorComponent")
+    );
     this.userForm.reset();
   }
 

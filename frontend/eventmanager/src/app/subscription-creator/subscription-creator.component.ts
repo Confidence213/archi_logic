@@ -16,13 +16,17 @@ export class SubscriptionCreatorComponent implements OnInit {
     eventId: ['', Validators.required]
   });
 
+  error = "";
+
   constructor(private fb: FormBuilder, private service: SubscriptionService) { }
 
   ngOnInit(): void {
   }
 
   addSubscription() {
-    this.service.addSubscription(this.subscriptionForm.value as Subscription).subscribe();
+    this.service.addSubscription(this.subscriptionForm.value as Subscription).subscribe(
+      _ => this.service.sendUpdate("update from SubscriptionCreatorComponent")
+    );
     this.subscriptionForm.reset();
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Event } from './event';
@@ -9,6 +9,8 @@ import { Event } from './event';
   providedIn: 'root'
 })
 export class EventService {
+
+  private notifier = new Subject<any>();
 
   private url = 'http://localhost:8080/events';
   
@@ -19,6 +21,14 @@ export class EventService {
   };
 
   constructor(private http: HttpClient) { }
+
+  sendUpdate(message: string) {
+    this.notifier.next(message);
+  }
+
+  getUpdate(): Observable<any> {
+      return this.notifier.asObservable();
+  }
 
   getEventList(): Observable<Event[]> {
     return this.http.get<Event[]>(this.url, this.httpOptions).pipe(

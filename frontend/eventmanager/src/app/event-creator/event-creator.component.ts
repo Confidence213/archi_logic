@@ -19,13 +19,17 @@ export class EventCreatorComponent implements OnInit {
     price: ['', Validators.required]
   });
 
+  error = "";
+
   constructor(private fb: FormBuilder, private service: EventService) { }
 
   ngOnInit(): void {
   }
 
   addEvent() {
-    this.service.addEvent(this.eventForm.value as Event).subscribe();
+    this.service.addEvent(this.eventForm.value as Event).subscribe(
+      _ => this.service.sendUpdate("update from EventCreatorComponent")
+    );
     this.eventForm.reset();
   }
 

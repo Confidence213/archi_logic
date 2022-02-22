@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Subscription } from './subscription';
@@ -9,6 +9,8 @@ import { Subscription } from './subscription';
   providedIn: 'root'
 })
 export class SubscriptionService {
+
+  private notifier = new Subject<any>();
 
   private url = 'http://localhost:8080/subscriptions';
   
@@ -19,6 +21,14 @@ export class SubscriptionService {
   };
 
   constructor(private http: HttpClient) { }
+
+  sendUpdate(message: string) {
+    this.notifier.next(message);
+  }
+
+  getUpdate(): Observable<any> {
+      return this.notifier.asObservable();
+  }
 
   getSubscriptionList(): Observable<Subscription[]> {
     return this.http.get<Subscription[]>(this.url, this.httpOptions).pipe(

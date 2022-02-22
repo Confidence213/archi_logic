@@ -14,14 +14,22 @@ export class EventListComponent implements OnInit, OnDestroy {
   sub: any;
 
   constructor(private service: EventService) {
+    this.service.getEventList().subscribe(list => this.eventList = list);
   }
 
   ngOnInit(): void {
-    this.sub = this.service.getEventList().subscribe(list => this.eventList = list);
+    this.sub = this.service.getUpdate().subscribe(message => {
+      this.log(message);
+      this.service.getEventList().subscribe(list => this.eventList = list);
+    })
   }
 
   ngOnDestroy(): void {
     if (this.sub) this.sub.unsubscribe();
+  }
+
+  private log(message: string) {
+    console.log(`EventListComponent: ${message}`);
   }
 
 }

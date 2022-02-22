@@ -17,7 +17,9 @@ export class SubscriptionDestroyerComponent implements OnInit {
   }
 
   deleteSubscription() {
-    this.service.deleteSubscription(this.ticketNumber).subscribe();
+    this.service.deleteSubscription(this.ticketNumber).subscribe(
+      _ => this.service.sendUpdate("update from SubscriptionDestroyerComponent")
+    );
   }
 
 }

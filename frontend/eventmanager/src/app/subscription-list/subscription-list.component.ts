@@ -14,14 +14,22 @@ export class SubscriptionListComponent implements OnInit, OnDestroy {
   sub: any;
 
   constructor(private service: SubscriptionService) {
+    this.service.getSubscriptionList().subscribe(list => this.subscriptionList = list);
   }
 
   ngOnInit(): void {
-    this.sub = this.service.getSubscriptionList().subscribe(list => this.subscriptionList = list);
+    this.sub = this.service.getUpdate().subscribe(message => {
+      this.log(message);
+      this.service.getSubscriptionList().subscribe(list => this.subscriptionList = list);
+    })
   }
 
   ngOnDestroy(): void {
     if (this.sub) this.sub.unsubscribe();
+  }
+
+  private log(message: string) {
+    console.log(`SubscriptionListComponent: ${message}`);
   }
 
 }

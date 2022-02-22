@@ -17,7 +17,9 @@ export class EventDestroyerComponent implements OnInit {
   }
 
   deleteEvent() {
-    this.service.deleteEvent(this.eventId).subscribe();
+    this.service.deleteEvent(this.eventId).subscribe(
+      _ => this.service.sendUpdate("update from EventDestroyerComponent")
+    );
   }
 
 }

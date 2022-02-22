@@ -17,7 +17,9 @@ export class UserDestroyerComponent implements OnInit {
   }
 
   deleteUser() {
-    this.service.deleteUser(this.username).subscribe(_ => this.service.sendUpdate("update from UserDestroyerComponent"));
+    this.service.deleteUser(this.username).subscribe(
+      _ => this.service.sendUpdate("update from UserDestroyerComponent")
+    );
   }
 
 }
