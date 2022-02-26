@@ -48,7 +48,17 @@ export class EventService {
   addEvent(event: Event): Observable<Event> {
     return this.http.post<Event>(this.url, event, this.httpOptions).pipe(
       tap((newEvent: Event) => this.log(`added event id=${newEvent.id}`)),
-      catchError(this.handleError<Event>('addEvent'))
+      catchError(err => {
+        switch (err.status) {
+          case 400:
+            err.message = "An event with the same ID already exists.";
+            break;
+          default:
+            err.message = "An error occured.";
+        }
+        console.error(err.message, err);
+        throw err;
+      })
     );
   }
 

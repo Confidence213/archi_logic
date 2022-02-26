@@ -27,9 +27,10 @@ export class EventCreatorComponent implements OnInit {
 
   addEvent() {
     this.service.addEvent(this.eventForm.value as Event).subscribe(
-      _ => this.service.sendUpdate("update from EventCreatorComponent")
+      _ => this.service.sendUpdate("update from EventCreatorComponent"),
+      err => this.error = err.message,
+      () => this.eventForm.reset()
     );
-    this.eventForm.reset();
   }
 
 }

@@ -51,10 +51,10 @@ export class UserService {
       catchError(err => {
         switch (err.status) {
           case 400:
-            err.message = "The username is already taken."
+            err.message = "The username is already taken.";
             break;
           default:
-            err.message = "An error occured."
+            err.message = "An error occured.";
         }
         console.error(err.message, err);
         throw err;

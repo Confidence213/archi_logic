@@ -48,7 +48,20 @@ export class SubscriptionService {
   addSubscription(subscription: Subscription): Observable<Subscription> {
     return this.http.post<Subscription>(this.url, subscription, this.httpOptions).pipe(
       tap((newSubscription: Subscription) => this.log(`added subscription ticketNumber=${newSubscription.ticketNumber}`)),
-      catchError(this.handleError<Subscription>('addSubscription'))
+      catchError(err => {
+        switch (err.status) {
+          case 404:
+            err.message = "Given user and/or event does not exist.";
+            break;
+          case 400:
+            err.message = "A subscription with the same ID already exists.";
+            break;
+          default:
+            err.message = "An error occured.";
+        }
+        console.error(err.message, err);
+        throw err;
+      })
     );
   }
 
