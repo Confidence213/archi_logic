@@ -29,7 +29,10 @@ export class EventCreatorComponent implements OnInit {
     this.service.addEvent(this.eventForm.value as Event).subscribe(
       _ => this.service.sendUpdate("update from EventCreatorComponent"),
       err => this.error = err.message,
-      () => this.eventForm.reset()
+      () => {
+        this.eventForm.reset();
+        this.error = "Successfully added event.";
+      }
     );
   }
 

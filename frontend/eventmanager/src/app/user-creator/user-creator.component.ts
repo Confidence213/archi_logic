@@ -30,7 +30,10 @@ export class UserCreatorComponent implements OnInit {
     this.service.addUser(this.userForm.value as User).subscribe(
       _ => this.service.sendUpdate("update from UserCreatorComponent"),
       err => this.error = err.message,
-      () => this.userForm.reset()
+      () => {
+        this.userForm.reset();
+        this.error = "Successfully added user.";
+      }
     );
   }
 

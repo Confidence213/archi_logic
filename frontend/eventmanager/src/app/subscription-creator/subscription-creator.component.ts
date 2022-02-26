@@ -26,7 +26,10 @@ export class SubscriptionCreatorComponent implements OnInit {
     this.service.addSubscription(this.subscriptionForm.value as Subscription).subscribe(
       _ => this.service.sendUpdate("update from SubscriptionCreatorComponent"),
       err => this.error = err.message,
-      () => this.subscriptionForm.reset()
+      () => {
+        this.subscriptionForm.reset();
+        this.error = "Successfully added subscription.";
+      }
     );
   }
 
